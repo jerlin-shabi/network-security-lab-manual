@@ -1,0 +1,99 @@
+### EXPERIMENT NO: 2 - IMPLEMENTATION OF ASYMMETRIC KEY ALGORITHM USING RSA
+
+## AIM:
+To implement the RSA (Rivest-Shamir-Adleman) asymmetric key encryption and decryption algorithm using HTML and JavaScript.
+
+## THEORY:
+RSA is an asymmetric cryptographic algorithm that uses two keys:
+- **Public Key**: Used for encryption, can be shared with anyone.
+- **Private Key**: Used for decryption, must be kept secret.
+
+RSA security relies on the difficulty of factoring large prime numbers. It is widely used for secure data transmission, digital signatures, and encryption in various applications.
+
+## REQUIREMENTS:
+- Web browser (Chrome, Firefox, Edge, etc.)
+- Internet connection (for loading external JS library `jsencrypt`)
+
+## PROCEDURE:
+1. **Generate RSA Key Pair**:
+   - Create a public-private key pair using the `JSEncrypt` library.
+   - Display the generated keys in a text area.
+2. **Encrypt Data**:
+   - Take user input and encrypt it using the public key.
+   - Display the encrypted text.
+3. **Decrypt Data**:
+   - Use the private key to decrypt the encrypted message.
+   - Display the original plaintext message.
+4. **Verify Encryption-Decryption Process**:
+   - Ensure the decrypted text matches the original input.
+
+## CODE IMPLEMENTATION:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RSA Encryption and Decryption</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.0.0/jsencrypt.min.js"></script>
+</head>
+<body>
+    <h2>RSA Encryption and Decryption</h2>
+    
+    <button onclick="generateKeys()">Generate RSA Keys</button>
+    <p><strong>Public Key:</strong></p>
+    <textarea id="publicKey" rows="5" cols="60" readonly></textarea>
+    <p><strong>Private Key:</strong></p>
+    <textarea id="privateKey" rows="5" cols="60" readonly></textarea>
+    
+    <h3>Encrypt a Message</h3>
+    <input type="text" id="plaintext" placeholder="Enter text to encrypt" />
+    <button onclick="encryptMessage()">Encrypt</button>
+    <p><strong>Encrypted Text:</strong></p>
+    <textarea id="ciphertext" rows="5" cols="60" readonly></textarea>
+    
+    <h3>Decrypt the Message</h3>
+    <button onclick="decryptMessage()">Decrypt</button>
+    <p><strong>Decrypted Text:</strong></p>
+    <textarea id="decryptedText" rows="2" cols="60" readonly></textarea>
+    
+    <script>
+        let rsaEncryptor;
+        
+        function generateKeys() {
+            rsaEncryptor = new JSEncrypt({default_key_size: 2048});
+            rsaEncryptor.getKey();
+            
+            document.getElementById("publicKey").value = rsaEncryptor.getPublicKey();
+            document.getElementById("privateKey").value = rsaEncryptor.getPrivateKey();
+        }
+        
+        function encryptMessage() {
+            let plaintext = document.getElementById("plaintext").value;
+            let encrypted = rsaEncryptor.encrypt(plaintext);
+            document.getElementById("ciphertext").value = encrypted;
+        }
+        
+        function decryptMessage() {
+            let encryptedText = document.getElementById("ciphertext").value;
+            let decrypted = rsaEncryptor.decrypt(encryptedText);
+            document.getElementById("decryptedText").value = decrypted;
+        }
+    </script>
+</body>
+</html>
+```
+
+## EXPECTED OUTPUT:
+- The program should generate an RSA key pair.
+- Encrypt user input using the public key.
+- Decrypt the encrypted text using the private key.
+- Display the decrypted message, matching the original input.
+
+## CONCLUSION:
+The RSA algorithm provides secure encryption and decryption using a public-private key pair. This experiment demonstrates asymmetric cryptography using HTML and JavaScript.
+
+## VIVA QUESTIONS:
+1. What is RSA, and how does it work?
+2. What is the difference between symmetric and asymmetric encryption?
+3. Why is RSA considered secure?
+4. What is the role of the public and private keys in RSA?
+5. What are some practical applications of RSA encryption?
